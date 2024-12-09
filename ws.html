@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ws</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">home</a></li>
+        <li><a href="#ws">ws</a></li>
+        <li><a href="#httpupgrade">httpupgrade</a></li>
+        <li><a href="#ed">ed</a></li>
+    </ul>
+
+    <h1><a name="ws"></a>ws</h1>
+    <p>
+        WebSocket 是 2011 年爲 http1.1 新增的功能，它爲 http 服務器和客戶端提供了雙向流的數據交互模式，這也是代理軟件找到的第一個可以通過 <a href="cdn.html">CDN</a>
+        的代理協議。它也是最早的將代理流量隱藏在正常 http 流量中的方案之一，基本上所有客戶端都支持它。
+    </p>
+    <p>目前只有在你的客戶端不支持其它協議時才建議使用這個協議因爲它與其它協議比起來幾乎已經沒有任何優勢，還有如下缺點：
+    <ol>
+        <li>大部分網站沒有 websocket，所以 ws 的流量本身就不多，如果你使用它作爲代理則大量的 websocekt 流量可能本身就是一個明顯的代理特徵</li>
+        <li>cloudflare 對 websocket 有流量併發限制，通常如果只是自己使用沒有問題，但如果你的服務器有很多人同時使用 websocket，則可能會觸發 cloudflare 的限流導致訪問緩慢</li>
+        <li>websocket 使用 http1.1 本身沒有連接復用，頻繁創建連接和 tls 握手很容易拖慢速度</li>
+        <li>websocket 不是流協議而是幀協議，數據傳輸時需要封裝爲 websocekt 幀這也減慢了此協議的效率</li>
+    </ol>
+    </p>
+
+    <h1><a name="httpupgrade"></a>httpupgrade</h1>
+    <p>
+        httpupgrade 不是一個 http 協議，只是大部分反向代理和cdn在遇到 websocket 時，都先進行 websocket 握手，之後不會進行 websocekt
+        的幀解包與打包而是直接轉發(因爲上下游都已經解包和打包故反代只需要轉發就可以正常工作)。於是代理開發者發現我們的也可以加個代理協議在 websocket 握手後直接傳輸流而非 websocekt 幀，
+        只需要客戶端和服務器都按照通過模式工作即可。
+    </p>
+    <p>
+        使用 httpupgrade 相比減少了 ws 中的缺點4，但其它 ws 的缺點依然存在，但無論如何相比 ws 有少許的進步
+    </p>
+
+    <h1><a name="ed"></a>ed</h1>
+    <p>
+        ed 是 Early Data 的簡寫，在 <a href="xray.html">xray</a> 中可以爲 ws/httpupgrade 路徑設置 ed=2560 來啓用早期數據，這樣客戶端會在建立 websocket
+        握手時
+        就帶上一些數據(不超過 ed 設置的只，<a href="xray.html">xray</a> 官方建議是設置爲 2560)，而不用等待握手成功才開始傳遞數據
+    </p>
+    <p>
+        注意服務器是使用的 <a href="xray.html">xray</a>，客戶端如果不是 <a href="xray.html">xray</a> 而是其它客戶端，可能不兼容 ed 參數，故此時不要設置 ed
+        否則代理無法正常工作
+        (<a href="v2ray.html">v2ray</a> 有類似功能帶參數不使用 ed 設置，故之後這個功能 <a href="xray.html">xray</a> 應該會與其它代理都不兼容)
+    </p>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>獲取地址</title>
+    <style>
+        .label {
+            min-width: 8px;
+        }
+    </style>
+    <script src="jquery.js"></script>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">home</a></li>
+        <li><a href="#get">獲取地址</a></li>
+    </ul>
+
+    <h1><a name="get"></a>獲取地址</h1>
+    <div>
+        <label for="baseurl">訂閱地址:</label>
+        <input type="text" id="baseurl">
+    </div>
+    <div>
+        <label for="protocol">數據協議:</label>
+        <select name="protocol" id="protocol">
+            <option value="vmess">vmess</option>
+            <option value="vless">vless</option>
+        </select>
+    </div>
+    <div>
+        <label for="network">傳輸協議:</label>
+        <select name="network" id="network">
+            <option value="ws">ws</option>
+            <option value="httpupgrade">httpupgrade</option>
+            <option value="grpc">grpc</option>
+            <option value="xhttp">xhttp</option>
+        </select>
+    </div>
+
+    <div id="xhttpview">
+        <label for="xhttpmode">xhttp mode:</label>
+        <select name="xhttpmode" id="xhttpmode">
+            <option value="packet-up">packet-up</option>
+            <option value="stream-up">stream-up</option>
+            <option value="stream-one">stream-one</option>
+        </select>
+    </div>
+    <div id="grpcview">
+        <label for="grpcmode">grpc mode:</label>
+        <select name="grpcmode" id="grpcmode">
+            <option value="gun">gun</option>
+            <option value="multi">multi</option>
+        </select>
+    </div>
+    <div id="wsview">
+        <label for="wsed">ed=2560</label>
+        <input type="checkbox" name="wsed" id="wsed">
+    </div>
+</body>
+<script src="js/get.js" ></script>
+
+</html>

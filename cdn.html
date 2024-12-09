@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDN</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">home</a></li>
+        <li><a href="#cdn">CDN</a></li>
+        <li><a href="#proxy">代理中的用途</a></li>
+    </ul>
+
+    <h1><a name="cdn"></a>CDN</h1>
+    <p>
+        簡單來說 CDN 是一種 http 反向代理服務，正常網路中，它起到爲 http 請求加速和緩存的能力，並且它對於 http 客戶端來說是透明的，客戶端只需要發送了 http 請求並得到響應不需要關心連接的是 CDN
+        還是源服務器
+    </p>
+    <p>通常 CDN 提供商會在全世界各地創建服務器，當客戶發送 http 請求時，會連接到供應商提供的最近的服務器，然後供應商會使用內部專線連接 http 源服務器，並且合理的中轉 http
+        協議以讓用戶獲取到和連接源服務器一樣的響應結果。CDN 供應商建立的專有網路通常可以提高客戶端獲取響應的速度，此外 CDN 還提供了各種其它功能例如防火牆安全，數據統計，限流...</p>
+
+
+    <h1><a name="proxy"></a>代理中的用途</h1>
+    <p>
+        由於客戶端會連接 CDN 提供的 ip，所以科學上網中它最大的用途就是防止服務器 ip 被泄漏。並且起到一定的流量隱藏作用
+    </p>
+    <p>
+        代理的客戶端如果直接連接代理服務器，獨裁者的網管設備會發現有大量的流量連接到一個境外的固定 ip，這本身就是一個
+        非常明顯的代理特徵，獨裁者就可以直接將這個 ip 加入到黑名單禁止數據與此 ip 通信，從而導致代理失效
+    </p>
+    <p>
+        <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 是世界上最大的 CDN
+        提供商，每天到它的流量十分巨大，將個人的代理流量隱藏在這浩瀚的流量中可以起到一定的隱蔽作用。
+        此外由於 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 的巨大影響力，一些獨裁國家不敢貿然將它的 ip
+        全都禁掉，否則網路立刻變成和北朝鮮無異！
+    </p>
+    <p>
+        此外 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 的 CDN
+        服務是免費的，這實在是爲突破獨裁者的網路封鎖提供了極大的幫助，無論 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare"
+            target="_blank">cloudflare</a> 是否有意爲之，
+        它都是突破獨裁者信息繭房的最大功臣
+    </p>
+</body>
+
+</html>

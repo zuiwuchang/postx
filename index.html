@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地址獲取</title>
+</head>
+
+<body>
+    <a href="https://github.com/zuiwuchang/postx">github</a>
+
+    <ul>
+        <li><a href="#backend">背景</a></li>
+        <li><a href="#node">節點</a></li>
+        <li><a href="#get">獲取地址</a></li>
+    </ul>
+
+    <h1><a name="backend"></a>背景</h1>
+    <div>
+        <p>
+            隨着 <a href="https://github.com/XTLS/Xray-core/releases/tag/v24.11.30" target="_blank">xray</a>
+            發佈的 xhttp 協議變得完整和成熟，代理節點的花樣變得異常多，並且由於個平臺對各種協議的支持程度不一，我變得很難分享訂閱組。於是我寫了這個在線的訂閱地址獲取器
+        </p>
+        <p>
+            你可以依據自己的平臺軟體的特性，得到服務器支持的各種自由搭配的代理節點組，此外本網站也簡單介紹了各種參數的含義建議查看一下，以便你在使用時能更加清楚要如何搭配參數
+        </p>
+    </div>
+
+
+    <h1><a name="node"></a>節點</h1>
+    <div>
+        <p>服務器的節點使用 <a href="xray.html">xray</a> 搭建，所有節點皆通過 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare"
+                target="_blank">cloudflare</a> 的
+            <a href="cdn.html">CDN</a> 提供
+        </p>
+        <p>
+            綜合各方面的考慮，服務器只提供了下述協議：
+        <ul>
+            <li><a href="ws.html">ws</a></li>
+            <li><a href="ws.html#httpupgrade">httpupgrade</a></li>
+            <li><a href="grpc.html">grpc</a></li>
+            <li><a href="xray.html#xhttp">xhttp</a></li>
+        </ul>
+        </p>
+    </div>
+
+    <h1><a name="get"></a>獲取地址</h1>
+    <div>
+        <ol>
+            <li>從服務器管理員那裏得到你的訂閱地址，例如 https://example.com/my </li>
+            <li>爲這個地址加上查詢參數即爲訂閱地址，
+                點擊<a href="get.html">此處</a>新的頁面會對參數進行解釋並可幫你生成最終的訂閱地址
+            </li>
+        </ol>
+    </div>
+
+</body>
+
+</html>

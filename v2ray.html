@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v2ray</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">home</a></li>
+        <li><a href="#v2ray">v2ray</a></li>
+        <li><a href="#v2fly">v2fly</a></li>
+        <li><a href="#vmess">vmess</a></li>
+        <li><a href="#vless">vless</a></li>
+    </ul>
+
+    <h1><a name="v2ray"></a>v2ray</h1>
+    <p>
+        2015 年 Project V 正式發佈，裏面包含了一套網路工作，其中最重要的就是 v2ray 它提供了完善的代理工具
+    </p>
+
+    <p>
+        v2ray 首創建了將代理數據和傳輸層分離的特性。當時的數據流量使用 vmess 進行加密，之後可以使用不同的傳輸層將加密數據在服務器和客戶端間進行傳輸。
+        在我看來獨立的傳輸層是它設計最成功的地方，這也爲後續各種傳輸層發展出的玩法奠定了基礎
+    </p>
+
+    <h1><a name="v2fly"></a>v2fly</h1>
+    <p>
+        v2ray 原本的項目地址是 <a href="https://github.com/v2ray/v2ray-core"
+            tabindex="_blank">https://github.com/v2ray/v2ray-core</a>，官網地址是 <a href="https://www.v2ray.com/"
+            target="_blank">https://www.v2ray.com/</a>
+    </p>
+    <p>
+        但是原本的管理員異常失蹤了導致無法更新，於是剩下的社區成員創建了新的項目地址 <a href="https://github.com/v2fly"
+            target="_blank">https://github.com/v2fly</a>
+        和新的官網地址 <a href="https://www.v2fly.org/" target="_blank">https://www.v2fly.org/</a>
+    </p>
+
+    <h1><a name="vmess"></a>vmess</h1>
+    <p>
+        vmess 是一強加密的數據格式，它會將代理數據進行加密以保證安全，即時獨裁者攔截了網路獲取到了你傳輸的數據，它也無法知道你代理訪問的具體內容。
+    </p>
+    <p>
+        注意 vmess 使用了時間驗證，請確保客戶端和服務器的時間是正確的(不超過5分鐘誤差)，否則服務器會拒絕執行代理工作
+    </p>
+
+    <h1><a name="vless"></a>vless</h1>
+    <p>
+        隨着 tls 傳輸層的流行，tls本身就提供了加密，此時 vmess 的加密就顯得多餘了，於是 v2ray 後續開發了新的數據協議 vless，
+        相對於 vmess 而言 vless 只打包了代理數據沒有包含加密和時間驗證。故
+
+    <ol>
+        <li>不要使用非 tls 的傳輸層，否則你就是在獨裁者面前裸奔</li>
+        <li>vless 沒有加密所以會比 vmess 更快</li>
+    </ol>
+    </p>
+    <p>
+        即時你使用了 tls 的傳輸層，也不見得就可以安心使用 vmess 了，因爲 tls 加密依賴與 tls 證書，
+        如果你的系統存在一些後門證書，例如 China 生產的設備可能直接包含獨裁者強制安裝在系統中的後門證書，
+        此時獨裁者可以通過中間人攻擊來獲取你傳輸的數據。
+    </p>
+    <p>
+        所以始終使用 vmess 是最安全的選擇，除非你確保自己的設備安全，但即使使用了 vmess 和所有安全可信的 tls 證書，獨裁者也可能根本不從這裏監控而是直接從輸入法或者操作系統自帶監控。
+        所以不要使用 China 俄羅斯 朝鮮 伊朗 產的設備和任何軟體才能安心上網。推薦買個備用手機來安全上網，我推薦 google 的 pixel，
+        你可以買個幾年前的 pixel 價格也就大概 1k 人民幣左右
+    </p>
+
+</body>
+
+</html>
