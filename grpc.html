@@ -25,14 +25,14 @@
     </p>
 
     <p>
-        面前移動端只有 <a href="https://github.com/2dust/v2rayNG/releases/tag/1.9.24" target="_blank">v2rayng</a> 對象 <a
+        目前移動端只有 <a href="https://github.com/2dust/v2rayNG/releases/tag/1.9.24" target="_blank">v2rayng</a> 對象 <a
             href="xray.html#xhttp">xhttp</a>
         提供了支持，
         其它客戶端建議使用 grpc 傳輸層。相對 <a href="xray.html#xhttp">xhttp</a> 它存在下述問題
 
     <ol>
         <li>grpc 沒有 heaer 等填充信息，隱蔽性低於 xhttp</li>
-        <li>grpc 沒有 xmux 提供的支持，穩定性可選比 xhttp 差</li>
+        <li>grpc 沒有 xmux 提供的支持，穩定性可能比 xhttp 差</li>
     </ol>
 
     當然 grpc 的優勢是幾乎所有 CDN 和 反代工具以及客戶端，都能很好的支持
