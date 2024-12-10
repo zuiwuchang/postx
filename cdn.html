@@ -12,6 +12,8 @@
         <li><a href="index.html">home</a></li>
         <li><a href="#cdn">CDN</a></li>
         <li><a href="#proxy">代理中的用途</a></li>
+        <li><a href="#fastip">優選 IP</a></li>
+        <li><a href="#fastname">優選域名</a></li>
     </ul>
 
     <h1><a name="cdn"></a>CDN</h1>
@@ -43,6 +45,42 @@
             target="_blank">cloudflare</a> 是否有意爲之，
         它都是突破獨裁者信息繭房的最大功臣
     </p>
+
+    <h1><a name="fastip"></a>優選 IP</h1>
+    <p>
+        <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 提供了大量的 <a href="https://www.cloudflare.com/zh-tw/ips/" target="_blank">IP</a> 地址，默認域名解析的 IP 地址可能不是最快的。
+        所爲的優選 IP 就是定時測試 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 提供的 <a href="https://www.cloudflare.com/zh-tw/ips/" target="_blank">IP</a> 段那些地址連接比較快記錄下來，
+        然後使用這些 IP 連接 cloudflare 從而爲服務進行加速
+    </p>
+    <p>
+        優選 IP 使得即使在 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 被部分阻斷的獨裁世界，只要不是北朝鮮那樣完全封鎖 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 
+        就可以使用 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 作爲代理的核心工具
+    </p>
+    <p>但優選 IP 存在下述問題：
+        <ul>
+            <li>需要一個設備去不斷的定時測試 IP</li>
+            <li>測試 IP 設備的網路只代表了，設備所處的網路與 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a>  間的速度表現。如果代理客戶端使用不同地區或運營商提供的網路這些 IP 可能不是最好的</li>
+            <li>依據測試算法的不同，這些 IP 的質量可能存在一些問題</li>
+            <li>依據網路情況和時間的變化，這些優選的 IP 可能會變質過期或被獨裁者重點關注</li>            
+        </ul>
+    </p>
+
+    <h1><a name="fastname"></a>優選域名</h1>
+    <p>
+        優選域名原理類似優選 IP，但不需要我們去測試 IP，主要是因爲大部分獨裁者還沒有北朝鮮的魄力，在各獨裁地區依然有很多國際大企業並且這些企業使用了 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a>，同時爲 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 進行了付費以
+        讓 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 會依據網路供應商和地區爲它分配離用戶最快的 IP。
+        因此我們可以使用這些大企業的域名去連接到 <a href="https://zh.wikipedia.org/zh-tw/Cloudflare" target="_blank">cloudflare</a> 以達到和優選 IP 類似的效果    
+    </p>
+    <p>
+        但優選域名也存在者一些問題:
+        <ul>
+            <li>可用作優選的域名並不太多</li>
+            <li>不同域名在不同網路環境和時間節點的質量也不同</li>
+            <li>有時優選的域名並不比優選 IP 質量高</li>
+        </ul>
+    </p>
+    <p>綜合考慮同時使用優選域名和優選 IP，自己依據使用情況進行切換是比較合適的選擇</p>
+    
 </body>
 
 </html>
