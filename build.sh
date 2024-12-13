@@ -3,5 +3,5 @@ set -e
 cd "`dirname "$BASH_SOURCE"`"
 
 tar -zcvf postx.tar.gz \
-    js  jquery.js \
+    js  jquery.js clipboard.min.js \
     *.html 

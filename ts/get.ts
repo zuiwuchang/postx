@@ -46,8 +46,13 @@ class View {
         baseurl.focus()
 
         const output = $("#output")
-        const copy = $("#copy")
-        new ClipboardJS('#copy')
+        let copy: any
+        try {
+            new ClipboardJS('#copy')
+            copy = $("#copy")
+        } catch (e) {
+            alert(e)
+        }
         this.btn.on('click', () => {
             try {
                 const u = `${baseurl.val()}`
@@ -107,7 +112,9 @@ class View {
                 query.set('ip', `${this.ip.is(":checked") ? 1 : 0}`)
                 const v = url.toString()
                 output.text(v)
-                copy.removeClass("hide")
+                if (copy) {
+                    copy.removeClass("hide")
+                }
             } catch (e) {
                 console.warn(e)
                 output.text(`${e}`)
