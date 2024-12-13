@@ -1,3 +1,4 @@
+declare const ClipboardJS: any
 class View {
 
     ip = $("#ip")
@@ -45,6 +46,8 @@ class View {
         baseurl.focus()
 
         const output = $("#output")
+        const copy = $("#copy")
+        new ClipboardJS('#copy')
         this.btn.on('click', () => {
             try {
                 const u = `${baseurl.val()}`
@@ -102,7 +105,9 @@ class View {
                         throw new Error(`請選擇有效的傳輸協議`);
                 }
                 query.set('ip', `${this.ip.is(":checked") ? 1 : 0}`)
-                output.text(url.toString())
+                const v = url.toString()
+                output.text(v)
+                copy.removeClass("hide")
             } catch (e) {
                 console.warn(e)
                 output.text(`${e}`)

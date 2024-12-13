@@ -121,10 +121,12 @@
 
         <p>
             <button id="btn">生成訂閱地址</button>
-            <div id="output"></div>
+            <p id="output"></p>
+            <button id="copy" class="hide" data-clipboard-target="#output">複製到剪貼板</button>
         </p>
     </div>
 </body>
+<script src="clipboard.min.js"></script>
 <script src="js/get.js" ></script>
 
 </html>
