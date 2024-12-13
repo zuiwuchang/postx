@@ -1,4 +1,31 @@
 declare const ClipboardJS: any
+class Bridge {
+    private static instance_: Bridge | undefined
+    static get instance(): Bridge {
+        if (!Bridge.instance_) {
+            Bridge.instance_ = new Bridge()
+        }
+        return Bridge.instance_
+    }
+    private no_?: boolean
+    private constructor() {
+        if (typeof localStorage === undefined) {
+            this.no_ = true
+        }
+    }
+    getItem(key: string): string | null {
+        if (this.no_) {
+            return null
+        }
+        return localStorage.getItem(key)
+    }
+    setItem(key: string, value: string) {
+        if (!this.no_) {
+            localStorage.setItem(key, value)
+        }
+    }
+}
+
 class View {
 
     ip = $("#ip")
@@ -52,6 +79,14 @@ class View {
             copy = $("#copy")
         } catch (e) {
             alert(e)
+        }
+        try {
+            const v = Bridge.instance.getItem('baseurl') ?? ''
+            if (v.startsWith("http://") || v.startsWith("https://")) {
+                baseurl.val(v)
+            }
+        } catch (e) {
+            console.log(e)
         }
         this.btn.on('click', () => {
             try {
@@ -112,6 +147,11 @@ class View {
                 query.set('ip', `${this.ip.is(":checked") ? 1 : 0}`)
                 const v = url.toString()
                 output.text(v)
+                try {
+                    Bridge.instance.setItem('baseurl', u)
+                } catch (e) {
+                    console.log(e)
+                }
                 if (copy) {
                     copy.removeClass("hide")
                 }

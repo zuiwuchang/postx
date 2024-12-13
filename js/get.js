@@ -1,4 +1,28 @@
 "use strict";
+class Bridge {
+    constructor() {
+        if (typeof localStorage === undefined) {
+            this.no_ = true;
+        }
+    }
+    static get instance() {
+        if (!Bridge.instance_) {
+            Bridge.instance_ = new Bridge();
+        }
+        return Bridge.instance_;
+    }
+    getItem(key) {
+        if (this.no_) {
+            return null;
+        }
+        return localStorage.getItem(key);
+    }
+    setItem(key, value) {
+        if (!this.no_) {
+            localStorage.setItem(key, value);
+        }
+    }
+}
 class View {
     constructor() {
         this.ip = $("#ip");
@@ -18,6 +42,7 @@ class View {
         this.node_xhttp = $("#node_xhttp");
     }
     init() {
+        var _a;
         this.network.on('change', (v) => {
             this._hide();
         });
@@ -44,6 +69,15 @@ class View {
         }
         catch (e) {
             alert(e);
+        }
+        try {
+            const v = (_a = Bridge.instance.getItem('baseurl')) !== null && _a !== void 0 ? _a : '';
+            if (v.startsWith("http://") || v.startsWith("https://")) {
+                baseurl.val(v);
+            }
+        }
+        catch (e) {
+            console.log(e);
         }
         this.btn.on('click', () => {
             try {
@@ -102,6 +136,12 @@ class View {
                 query.set('ip', `${this.ip.is(":checked") ? 1 : 0}`);
                 const v = url.toString();
                 output.text(v);
+                try {
+                    Bridge.instance.setItem('baseurl', u);
+                }
+                catch (e) {
+                    console.log(e);
+                }
                 if (copy) {
                     copy.removeClass("hide");
                 }
