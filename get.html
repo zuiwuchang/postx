@@ -9,27 +9,34 @@
         .hide {
             display: none;
         }
-        .label{
+
+        .label {
             text-align: center;
             padding: 0 0.5rem 0 0;
             white-space: nowrap;
         }
-        .f{
+
+        .f {
             width: 100%;
         }
-        .flex{
+
+        .flex {
             display: flex;
         }
-        .flex-grow-0{
+
+        .flex-grow-0 {
             flex-grow: 0;
         }
-        .flex-grow-1{
+
+        .flex-grow-1 {
             flex-grow: 1;
         }
-        .view{
+
+        .view {
             padding: 0 0.5rem 0 0.5rem;
         }
-        .note{
+
+        .note {
             margin-left: 0.5rem;
             text-decoration: none;
         }
@@ -45,15 +52,19 @@
     <h1>獲取地址</h1>
     <div class="view">
         <div class="flex">
-            <label for="baseurl" class="label flex-grow-0" >訂閱地址:</label>
+            <label for="baseurl" class="label flex-grow-0">訂閱地址:</label>
             <div class="flex-grow-1">
                 <input type="text" id="baseurl" class="f">
             </div>
         </div>
         <div class="flex">
-            <label for="ip" class="label flex-grow-0">優選 IP:</label>
+            <label for="ip" class="label flex-grow-0">優選:</label>
             <div class="flex-grow-1">
-                <input type="checkbox" name="ip" id="ip">
+                <select name="xhttpmode" id="ip">
+                    <option value="0">域名</option>
+                    <option value="1">ipv4</option>
+                    <option value="2">ipv6</option>
+                </select>
                 <a class="note" href="cdn.html#fastip">註解</a>
             </div>
         </div>
@@ -121,12 +132,12 @@
 
         <p>
             <button id="btn">生成訂閱地址</button>
-            <p id="output"></p>
-            <button id="copy" class="hide" data-clipboard-target="#output">複製到剪貼板</button>
+        <p id="output"></p>
+        <button id="copy" class="hide" data-clipboard-target="#output">複製到剪貼板</button>
         </p>
     </div>
 </body>
 <script src="clipboard.min.js"></script>
-<script src="js/get.js" ></script>
+<script src="js/get.js"></script>
 
 </html>

@@ -133,7 +133,7 @@ class View {
                     default:
                         throw new Error(`請選擇有效的傳輸協議`);
                 }
-                query.set('ip', `${this.ip.is(":checked") ? 1 : 0}`);
+                query.set('ip', `${this.ip.val()}`);
                 const v = url.toString();
                 output.text(v);
                 try {
