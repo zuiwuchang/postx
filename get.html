@@ -58,79 +58,104 @@
             </div>
         </div>
         <div class="flex">
-            <label for="ip" class="label flex-grow-0">優選:</label>
+            <label for="server" class="label flex-grow-0">服務器:</label>
             <div class="flex-grow-1">
-                <select name="xhttpmode" id="ip">
-                    <option value="0">域名</option>
-                    <option value="3">域名 2</option>
-                    <option value="1">ipv4</option>
-                    <option value="2">ipv6</option>
+                <select name="server" id="server">
+                    <option value="cs">cloudflare server</option>
+                    <option value="ds">direct server</option>
+                    <option value="cw">cloudflare worker</option>
+                    <option value="sh">streamf home</option>
+                    <option value="sl">streamf lan</option>
                 </select>
-                <a class="note" href="cdn.html#fastip">註解</a>
             </div>
         </div>
         <div class="flex">
-            <label for="protocol" class="label flex-grow-0">數據協議:</label>
+            <label for="client" class="label flex-grow-0">客戶端:</label>
             <div class="flex-grow-1">
-                <select name="protocol" id="protocol">
-                    <option value="vmess">vmess</option>
-                    <option value="vless">vless</option>
+                <select name="client" id="client">
+                    <option value="v">v2rayNG</option>
+                    <option value="h">hiddify</option>
                 </select>
-                <a class="note" href="v2ray.html#vmess">註解</a>
             </div>
         </div>
-        <div class="flex">
-            <label for="network" class="label flex-grow-0">傳輸協議:</label>
-            <div class="flex-grow-1">
-                <select name="network" id="network">
-                    <option value="ws">ws</option>
-                    <option value="httpupgrade">httpupgrade</option>
-                    <option value="grpc">grpc</option>
-                    <option value="xhttp">xhttp</option>
-                </select>
-
-                <a class="note hide" id="node_ws" href="ws.html#ws">註解</a>
-                <a class="note hide" id="node_httpupgrade" href="ws.html#httpupgrade">註解</a>
-                <a class="note hide" id="node_grpc" href="grpc.html#grpc">註解</a>
-                <a class="note hide" id="node_xhttp" href="xray.html#xhttp">註解</a>
-            </div>
-        </div>
-
-        <div id="xhttpview">
+        <div id="view_choose">
             <div class="flex">
-                <label for="xhttpmode" class="label flex-grow-0">xhttp mode:</label>
+                <label for="ip" class="label flex-grow-0">優選:</label>
                 <div class="flex-grow-1">
-                    <select name="xhttpmode" id="xhttpmode">
-                        <option value="packet-up">packet-up</option>
-                        <option value="stream-up">stream-up</option>
-                        <option value="stream-one">stream-one</option>
+                    <select name="xhttpmode" id="ip">
+                        <option value="0">域名</option>
+                        <option value="3">域名 2</option>
+                        <option value="1">ipv4</option>
+                        <option value="2">ipv6</option>
                     </select>
-                    <a class="note" href="xray.html#xhttp">註解</a>
+                    <a class="note" href="cdn.html#fastip">註解</a>
                 </div>
             </div>
-        </div>
-        <div id="grpcview">
-            <div class="flex">
-                <label for="grpcmode" class="label flex-grow-0">grpc mode:</label>
-                <div class="flex-grow-1">
-                    <select name="grpcmode" id="grpcmode">
-                        <option value="gun">gun</option>
-                        <option value="multi">multi</option>
-                    </select>
-                    <a class="note" href="grpc.html#gun">註解</a>
+            <div id="view_choose_protocol">
+                <div class="flex">
+                    <label for="protocol" class="label flex-grow-0">數據協議:</label>
+                    <div class="flex-grow-1">
+                        <select name="protocol" id="protocol">
+                            <option value="vmess">vmess</option>
+                            <option value="vless">vless</option>
+                        </select>
+                        <a class="note" href="v2ray.html#vmess">註解</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div id="wsview">
-            <div class="flex">
-                <label for="wsed" class="label flex-grow-0">ed=2560</label>
-                <div class="flex-grow-1">
-                    <input type="checkbox" name="wsed" id="wsed">
-                    <a class="note" href="ws.html#ed">註解</a>
-                </div>
-            </div>
-        </div>
+                <div class="flex">
+                    <label for="network" class="label flex-grow-0">傳輸協議:</label>
+                    <div class="flex-grow-1">
+                        <select name="network" id="network">
+                            <option value="ws">ws</option>
+                            <option value="httpupgrade">httpupgrade</option>
+                            <option value="grpc">grpc</option>
+                            <option value="xhttp">xhttp</option>
+                        </select>
 
+                        <a class="note hide" id="node_ws" href="ws.html#ws">註解</a>
+                        <a class="note hide" id="node_httpupgrade" href="ws.html#httpupgrade">註解</a>
+                        <a class="note hide" id="node_grpc" href="grpc.html#grpc">註解</a>
+                        <a class="note hide" id="node_xhttp" href="xray.html#xhttp">註解</a>
+                    </div>
+                </div>
+
+                <div id="xhttpview">
+                    <div class="flex">
+                        <label for="xhttpmode" class="label flex-grow-0">xhttp mode:</label>
+                        <div class="flex-grow-1">
+                            <select name="xhttpmode" id="xhttpmode">
+                                <option value="packet-up">packet-up</option>
+                                <option value="stream-up">stream-up</option>
+                                <option value="stream-one">stream-one</option>
+                            </select>
+                            <a class="note" href="xray.html#xhttp">註解</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="grpcview">
+                    <div class="flex">
+                        <label for="grpcmode" class="label flex-grow-0">grpc mode:</label>
+                        <div class="flex-grow-1">
+                            <select name="grpcmode" id="grpcmode">
+                                <option value="gun">gun</option>
+                                <option value="multi">multi</option>
+                            </select>
+                            <a class="note" href="grpc.html#gun">註解</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wsview">
+                <div class="flex">
+                    <label for="wsed" class="label flex-grow-0">ed=2560</label>
+                    <div class="flex-grow-1">
+                        <input type="checkbox" name="wsed" id="wsed">
+                        <a class="note" href="ws.html#ed">註解</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <p>
             <button id="btn">生成訂閱地址</button>
         <p id="output"></p>

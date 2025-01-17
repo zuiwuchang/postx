@@ -25,6 +25,8 @@ class Bridge {
 }
 class View {
     constructor() {
+        this.server = $("#server");
+        this.client = $("#client");
         this.ip = $("#ip");
         this.protocol = $("#protocol");
         this.network = $("#network");
@@ -36,6 +38,8 @@ class View {
         this.wsed = $("#wsed");
         this.label = $("label");
         this.btn = $("#btn");
+        this.viewChoose = $("#view_choose");
+        this.viewChooseProtocol = $("#view_choose_protocol");
         this.node_ws = $("#node_ws");
         this.node_httpupgrade = $("#node_httpupgrade");
         this.node_grpc = $("#node_grpc");
@@ -43,12 +47,16 @@ class View {
     }
     init() {
         var _a;
+        this.server.on('change', (v) => {
+            this._hide();
+        });
         this.network.on('change', (v) => {
             this._hide();
         });
         this.protocol.val('vless');
         this.network.val('xhttp');
         this.xhttpmode.val('stream-one');
+        this.wsed.prop('checked', true);
         let maxw = 0;
         this.label.each((_, ele) => {
             var _a;
@@ -88,6 +96,33 @@ class View {
                 const url = new URL(u);
                 url.search = '';
                 const query = url.searchParams;
+                const server = this.server.val();
+                query.set('server', `${server}`);
+                const client = this.client.val();
+                query.set('client', `${client}`);
+                switch (server) {
+                    case 'cw':
+                        if (this.wsed.is(":checked")) {
+                            query.set('mode', '2560');
+                        }
+                    case 'ds':
+                    case 'sh':
+                    case 'sl':
+                        {
+                            const v = url.toString();
+                            output.text(v);
+                            try {
+                                Bridge.instance.setItem('baseurl', u);
+                            }
+                            catch (e) {
+                                console.log(e);
+                            }
+                            if (copy) {
+                                copy.removeClass("hide");
+                            }
+                        }
+                        return;
+                }
                 const protocol = this.protocol.val();
                 switch (protocol) {
                     case 'vless':
@@ -119,6 +154,9 @@ class View {
                         query.set('mode', `${mode}`);
                         break;
                     case 'xhttp':
+                        if (client == "h") {
+                            throw new Error(`hiddify 還未支持 xhttp 請耐心等待`);
+                        }
                         mode = this.xhttpmode.val();
                         switch (mode) {
                             case 'packet-up':
@@ -153,8 +191,25 @@ class View {
         });
     }
     _hide() {
-        const val = this.network.val();
-        switch (val) {
+        const server = this.server.val();
+        switch (server) {
+            case 'ds':
+            case 'sh':
+            case 'sl':
+                this.viewChoose.addClass('hide');
+                return;
+            case 'cw':
+                this.viewChoose.removeClass('hide');
+                this.viewChooseProtocol.addClass('hide');
+                this.wsview.removeClass('hide');
+                return;
+            default:
+                this.viewChoose.removeClass('hide');
+                this.viewChooseProtocol.removeClass('hide');
+                break;
+        }
+        const network = this.network.val();
+        switch (network) {
             case 'ws':
                 this.xhttpview.addClass('hide');
                 this.grpcview.addClass('hide');
