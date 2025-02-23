@@ -103,7 +103,7 @@ class View {
                 switch (server) {
                     case 'cw':
                         if (this.wsed.is(":checked")) {
-                            query.set('mode', '2560');
+                            query.set('mode', 'ed=2560');
                         }
                     case 'ds':
                     case 'sh':
@@ -139,7 +139,7 @@ class View {
                     case 'ws':
                     case 'httpupgrade':
                         if (this.wsed.is(":checked")) {
-                            query.set('mode', '2560');
+                            query.set('mode', 'ed=2560');
                         }
                         break;
                     case 'grpc':
