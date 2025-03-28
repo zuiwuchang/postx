@@ -5,91 +5,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>xray</title>
+    <link rel="stylesheet" href="css/bulma-1.0.2.css">
 </head>
 
-<body>
-    <ul>
-        <li><a href="index.html">home</a></li>
-        <li><a href="#xray">xray</a></li>
-        <li><a href="#xhttp">xhttp</a></li>
-        <li><a href="#choose">choose</a></li>
+<body class="container" style="padding: 1.5rem 0 1.5rem 0;">
+    <div class="box content">
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="#xray">xray</a></li>
+            <li><a href="#xhttp">xhttp</a></li>
+            <li><a href="#choose">choose</a></li>
+        </ul>
+    </div>
+    <div class="box" id="xray">
+        <h1 class="title">xray</h1>
+        <div class="content">
+            <div class="block">
+                由於 <a href="https://github.com/XTLS/Go/issues/9" target="_blank">理念之爭</a> 導致 <a
+                    href="v2ray.html#vless">vless</a>
+                的作者重新
+                fork 了一個新項目 <a href="https://github.com/xtls/xray-core">xray</a>，官網 <a href="https://xtls.github.io/"
+                    target="_blank">https://xtls.github.io/</a>
+            </div>
+            <div class="block">
+                <a href="https://github.com/xtls/xray-core">xray</a> 設定和大部分內容兼容 <a
+                    href="v2ray.html">v2ray</a>，但隨着開發的持續，目前已經有了很多重要的獨特特性：
+                <ul>
+                    <li>xtls</li>
+                    <li>reality</li>
+                    <li><a href="#xhttp">xhttp</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="box" id="xhttp">
+        <div class="block">
+            <h1 class="title">xhttp</h1>
+            <div class="content">
+                <div class="block">
+                    <a href="https://xtls.github.io/config/transports/splithttp.html#xhttpobject"
+                        target="_blank">xhttp</a>
+                    確實開啓了一個新時代，建議首選它作爲傳輸層(否則推薦使用 <a href="grpc.html">grpc</a>)，它包含了三種傳輸模式
+                    <ul>
+                        <li><a href="#packet-up">packet-up</a></li>
+                        <li><a href="#stream-up">stream-up</a></li>
+                        <li><a href="#stream-one">stream-one</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-    </ul>
+        <div class="block">
+            <div id="packet-up">
+                <h2 class="title is-4">packet-up</h2>
+                <div class="content">
+                    <div class="block">
+                        packet-up 是 xhttp 最早支持的模式，它可以兼容 h3 h2 h1，幾乎在所有 CND 和反代中都可以正常工作。
+                        因爲它將代理數據以http分包的形式在服務器和客戶端間傳輸數據，不需要關心 http 版本。
+                        值得一提的是上傳的服務器和下載數據的服務器可以是不同的(上傳下載的協議也可以是不同比如 h3 上傳 h2 下載)，
+                        即上下行分離，這對與隱藏代理數據很有幫助
+                    </div>
+                    <div class="block">雖然支持 h1 h2 h3 但推薦使用 h2，因爲 h1 太慢，h3 有 qos 且 CDN 不支持 h3 回源
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <h1><a name="xray"></a>xray</h1>
-    <p>
-        由於 <a href="https://github.com/XTLS/Go/issues/9" target="_blank">理念之爭</a> 導致 <a
-            href="v2ray.html#vless">vless</a>
-        的作者重新
-        fork 了一個新項目 <a href="https://github.com/xtls/xray-core">xray</a>，官網 <a href="https://xtls.github.io/"
-            target="_blank">https://xtls.github.io/</a>
-    </p>
-    <p>
-        <a href="https://github.com/xtls/xray-core">xray</a> 設定和大部分內容兼容 <a
-            href="v2ray.html">v2ray</a>，但隨着開發的持續，目前已經有了很多重要的獨特特性：
-    <ul>
-        <li>xtls</li>
-        <li>reality</li>
-        <li>xhttp</li>
-    </ul>
-    </p>
-    <h1><a name="xhttp"></a>xhttp</h1>
-    <p>
-        <a href="https://xtls.github.io/config/transports/splithttp.html#xhttpobject" target="_blank">xhttp</a>
-        確實開啓了一個新時代，建議首選它作爲傳輸層(否則推薦使用 <a href="grpc.html">grpc</a>)，它包含了三種傳輸模式
-    <ul>
-        <li><a href="#packet-up">packet-up</a></li>
-        <li><a href="#stream-up">stream-up</a></li>
-        <li><a href="#stream-one">stream-one</a></li>
-    </ul>
-    </p>
+        <div class="block">
+            <div id="stream-up">
+                <h2 class="title is-4">stream-up</h2>
+                <div class="block">
+                    stream-up 是對 packet-up 的升級，類似 packet-up 但上傳數據是使用了流，這需要 h2 或 h3 的支持，
+                    CDN 通常不支持 h3 回源，並且 h3 使用 udp 傳輸數據，可能會被運營商 qos，故我比較推薦使用 h2
+                </div>
+                <div class="block">
+                    packet-up 將上傳數據分爲多個 POST 包以單獨的 http 請求發送，例如一個 20m 的數據會分成20個數據包，所以發送 20 個 http 請求。
+                    stream-up 則會發送一個 POST 請求創建一個 h2/h3 的流，在流中發送 20m 數據(當然其中可能會因爲 mux 設置決定是否要再啓動一個新流，這裏我們忽略)。
+                    以流的形式顯然少了很多開銷效率自然高不少。
+                </div>
+            </div>
+        </div>
 
-    <h2><a name="packet-up"></a>packet-up</h2>
-    <p>
-        packet-up 是 xhttp 最早支持的模式，它可以兼容 h3 h2 h1，幾乎在所有 CND 和反代中都可以正常工作。
-        因爲它將代理數據以http分包的形式在服務器和客戶端間傳輸數據，不需要關心 http 版本。
-        值得一提的是上傳的服務器和下載數據的服務器可以是不同的(上傳下載的協議也可以是不同比如 h3 上傳 h2 下載)，
-        即上下行分離，這對與隱藏代理數據很有幫助
-    </p>
-    <p>雖然支持 h1 h2 h3 但推薦使用 h2，因爲 h1 太慢，h3 有 qos 且 CDN 不支持 h3 回源
-    </p>
+        <div class="block">
+            <div id="stream-one">
+                <h2 class="title is-4">stream-one</h2>
+                <div class="block">
+                    stream-one 是用於取代以前的 grpc 和 http2，它類似 stream-up ，但不支持上下行分離(所以是三種模式中最快的)。雖然支持 h2 和 h3
+                    但還是推薦只使用 h2。
+                </div>
+                <div class="block">
+                    stream-up 在上傳和下載分別使用了不同的流，但流其實是雙向的 stream-one 則在同個流中上傳和下載。這樣客戶端和服務器也不需要去重組與關聯多個流間的關係。
+                    所以 stream-one 自然比 stream-up 效率高。但這樣就失去了上下行分離的特性，如何選擇要自己評估
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h2><a name="stream-up"></a>stream-up</h2>
-    <p>
-        stream-up 是對 packet-up 的升級，類似 packet-up 但上傳數據是使用了流，這需要 h2 或 h3 的支持，
-        CDN 通常不支持 h3 回源，並且 h3 使用 udp 傳輸數據，可能會被運營商 qos，故我比較推薦使用 h2
-    </p>
-    <p>
-        packet-up 將上傳數據分爲多個 POST 包以單獨的 http 請求發送，例如一個 20m 的數據會分成20個數據包，所以發送 20 個 http 請求。
-        stream-up 則會發送一個 POST 請求創建一個 h2/h3 的流，在流中發送 20m 數據(當然其中可能會因爲 mux 設置決定是否要再啓動一個新流，這裏我們忽略)。
-        以流的形式顯然少了很多開銷效率自然高不少。
-    </p>
-
-    <h2><a name="stream-one"></a>stream-one</h2>
-    <p>
-        stream-one 是用於取代以前的 grpc 和 http2，它類似 stream-up ，但不支持上下行分離(所以是三種模式中最快的)。雖然支持 h2 和 h3
-        但還是推薦只使用 h2。
-    </p>
-    <p>
-        stream-up 在上傳和下載分別使用了不同的流，但流其實是雙向的 stream-one 則在同個流中上傳和下載。這樣客戶端和服務器也不需要去重組與關聯多個流間的關係。
-        所以 stream-one 自然比 stream-up 效率高。但這樣就失去了上下行分離的特性，如何選擇要自己評估
-    </p>
-
-    <h1><a name="choose"></a>choose</h1>
-    <p>
-        簡單來說客戶端請使用 h2，之後
-    <ol>
-        <li>首選 stream-one，它最快最穩定</li>
-        <li>感覺被牆想增加隱蔽，使用 stream-up 配合上下行分離</li>
-        <li>CDN 不支持上述兩種模式時選擇 packet-up </li>
-    </ol>
-    </p>
-    <p>
-        packet-up 和 stream-up 默認就是上下行分離的，只是如果不配置下行它會使用和上行一樣的服務器信息。
-        通常我不建議這樣做，因爲使用 CDN 很容易配置一個不同的下行信息，只需要加入一個和上行不同的域名即可。
-        至於上下行連接的 ip 是否要一致值得考慮，因爲不同ip連接的速度可能是不同的，此外或許連接 CDN 同個ip的不同端口是不錯的主意，
-        但一些寬帶供應商爲 80 和 443 端口進行了額外優化，使用不同端口也需要考慮此種情況。
-    </p>
+    <div class="box" id="choose">
+        <h1 class="title">choose</h1>
+        <div class="content">
+            <div class="block">
+                簡單來說客戶端請使用 h2，之後
+                <ol>
+                    <li>首選 stream-one，它最快最穩定</li>
+                    <li>感覺被牆想增加隱蔽，使用 stream-up 配合上下行分離</li>
+                    <li>CDN 不支持上述兩種模式時選擇 packet-up </li>
+                </ol>
+            </div>
+            <div class="block">
+                packet-up 和 stream-up 默認就是上下行分離的，只是如果不配置下行它會使用和上行一樣的服務器信息。
+                通常我不建議這樣做，因爲使用 CDN 很容易配置一個不同的下行信息，只需要加入一個和上行不同的域名即可。
+                至於上下行連接的 ip 是否要一致值得考慮，因爲不同ip連接的速度可能是不同的，此外或許連接 CDN 同個ip的不同端口是不錯的主意，
+                但一些寬帶供應商爲 80 和 443 端口進行了額外優化，使用不同端口也需要考慮此種情況。
+            </div>
+        </div>
+    </div>
 
 </body>
 
