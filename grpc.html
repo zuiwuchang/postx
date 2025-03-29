@@ -5,49 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>grpc</title>
+    <link rel="stylesheet" href="css/bulma-1.0.2.css">
 </head>
 
-<body>
-    <ul>
-        <li><a href="index.html">home</a></li>
-        <li><a href="#grpc">grpc</a></li>
-        <li><a href="#gun">gun</a></li>
-        <li><a href="#multi">multi</a></li>
+<body class="container" style="padding: 1.5rem 0 1.5rem 0;">
+    <div class="box content">
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="#grpc">grpc</a></li>
+            <li><a href="#gun">gun</a></li>
+            <li><a href="#multi">multi</a></li>
 
-    </ul>
+        </ul>
+    </div>
 
-    <h1><a name="grpc"></a>grpc</h1>
-    <p>
-        <a href="https://grpc.io/" target="_blank">grpc</a> 是 google 研發的一個 rpc 框架，它使用了 http2 作爲傳輸層，
-        由於它的簡單高效且與 http 緊密相連，
-        <a href="v2ray.html">v2ray</a> 開發了 grpc 作爲代理的傳輸層，
-        <a href="xray.html">xray</a> 對它進行了增強
-    </p>
+    <div class="box" id="grpc">
+        <h1 class="title">grpc</h1>
+        <div class="content">
+            <div class="block">
+                <a href="https://grpc.io/" target="_blank">grpc</a> 是 google 研發的一個 rpc 框架，它使用了 http2 作爲傳輸層，
+                由於它的簡單高效且與 http 緊密相連，
+                <a href="v2ray.html">v2ray</a> 開發了 grpc 作爲代理的傳輸層，
+                <a href="xray.html">xray</a> 對它進行了增強
+            </div>
 
-    <p>
-        目前移動端只有 <a href="https://github.com/2dust/v2rayNG/releases/tag/1.9.24" target="_blank">v2rayng</a> 對象 <a
-            href="xray.html#xhttp">xhttp</a>
-        提供了支持，
-        其它客戶端建議使用 grpc 傳輸層。相對 <a href="xray.html#xhttp">xhttp</a> 它存在下述問題
+            <div class="block">
+                目前移動端只有 <a href="https://github.com/2dust/v2rayNG/releases/tag/1.9.24" target="_blank">v2rayng</a> 對 <a
+                    href="xray.html#xhttp">xhttp</a>
+                提供了支持，
+                其它客戶端建議使用 grpc 傳輸層。相對 <a href="xray.html#xhttp">xhttp</a> 它存在下述問題
 
-    <ol>
-        <li>grpc 沒有 heaer 等填充信息，隱蔽性低於 xhttp</li>
-        <li>grpc 沒有 xmux 提供的支持，穩定性可能比 xhttp 差</li>
-    </ol>
+                <ol>
+                    <li>grpc 沒有 heaer 等填充信息，隱蔽性低於 xhttp</li>
+                    <li>grpc 沒有 xmux 提供的支持，穩定性可能比 xhttp 差</li>
+                </ol>
 
-    當然 grpc 的優勢是幾乎所有 CDN 和 反代工具以及客戶端，都能很好的支持
-    </p>
+                當然 grpc 的優勢是幾乎所有 CDN 和 反代工具以及客戶端，都能很好的支持
+            </div>
+        </div>
+    </div>
 
-    <h1><a name="gun"></a>gun</h1>
-    <p>
-        這是 v2ray/xray 等各中客戶端都支持的模式，直接使用這個就好
-    </p>
+    <div class="box" id="gun">
+        <h1 class="title">gun</h1>
+        <div class="content">
+            <div class="block">
+                這是 v2ray/xray 等各中客戶端都支持的模式，直接使用這個就好
+            </div>
+        </div>
+    </div>
 
-    <h1><a name="multi"></a>multi</h1>
-    <p>
-        這是 xray 特有的模式，據說效率稍有提高，但一直處於測試狀態，且非 xray 內核的客戶端很可能不支持，
-        除非你明確知道自己的客戶端支持，否則不要設置這個模式
-    </p>
+    <div class="box" id="multi">
+        <h1 class="title">multi</h1>
+        <div class="content">
+            <div class="block">
+                這是 xray 特有的模式，據說效率稍有提高，但一直處於測試狀態，且非 xray 內核的客戶端很可能不支持，
+                除非你明確知道自己的客戶端支持，否則不要設置這個模式
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

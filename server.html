@@ -5,50 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>server</title>
+    <link rel="stylesheet" href="css/bulma-1.0.2.css">
 </head>
 
-<body>
-    <ul>
-        <li><a href="index.html">home</a></li>
-        <li><a href="#server">server</a></li>
-        <li><a href="#ds">direct server</a></li>
-        <li><a href="#cs">cloudflare server</a></li>
-        <li><a href="#cs">cloudflare worker</a></li>
-        <li><a href="#streamf">streamf</a></li>
-    </ul>
+<body class="container" style="padding: 1.5rem 0 1.5rem 0;">
+    <div class="box content">
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="#server">server</a></li>
+            <li><a href="#ds">direct server</a></li>
+            <li><a href="#cs">cloudflare server</a></li>
+            <li><a href="#cw">cloudflare worker</a></li>
+            <li><a href="#streamf">streamf</a></li>
+        </ul>
+    </div>
 
-    <h1><a name="server"></a>server</h1>
-    <p>
-        代理需要由服務器轉發網路數據，客戶端可以由多種方法與服務器建立連接
-    </p>
-    <h1><a name="ds"></a>direct server</h1>
-    <p>
-        direct server 即直接連接服務器，通常這是最快的，但是不推薦使用 ipv4 連接，因爲這可能導致你服務器備份被獨裁者封鎖。
-        一旦被封鎖，管理服務器將變得麻煩
-    </p>
-    <p>
-        但是據說因爲技術原因 ipv6 還未被強裏封鎖，推薦使用 v6 進行連接，即使服務器的 v6 地址被封鎖，依然可以使用 v4 地址管理服務器。
-        但依然不建議直接連接服務器，應該把 v6 直連服務器作爲最後的保底手段只在其它方法無法使用時才使用此方案應急
-    </p>
+    <div class="box" id="server">
+        <h1 class="title"><a name="server"></a>server</h1>
+        <div class="content">
+            <div class="block">
+                代理需要由服務器轉發網路數據，客戶端可以由多種方法與服務器建立連接
+            </div>
+        </div>
+    </div>
 
-    <h1><a name="cs"></a>cloudflare server</h1>
-    <p>
-        cloudflare server 即通過 cloudflare 提供的 cdn 服務連接服務器，這是推薦的方案
-    </p>
+    <div class="box" id="ds">
+        <h1 class="title">direct server</h1>
+        <div class="content">
+            <div class="block">
+                direct server 即直接連接服務器，通常這是最快的，但是不推薦使用 ipv4 連接，因爲這可能導致你服務器備份被獨裁者封鎖。
+                一旦被封鎖，管理服務器將變得麻煩
+            </div>
+            <div class="block">
+                但是據說因爲技術原因 ipv6 還未被強烈封鎖，推薦使用 v6 進行連接，即使服務器的 v6 地址被封鎖，依然可以使用 v4 地址管理服務器。
+                但依然不建議直接連接服務器，應該把 v6 直連服務器作爲最後的保底手段只在其它方法無法使用時才使用此方案應急
+            </div>
+        </div>
+    </div>
 
-    <h1><a name="cw"></a>cloudflare worker</h1>
-    <p>
-        cloudflare worker 提供了 worker 可以直接充當服務器，這樣不需要再增加建立服務器。但 worker 每月流量和請求數是有限的，
-        並且 worker 可能每次會以不同的ip與目標服務建立連接，這很容易引起網址封鎖你的帳戶。 worker 只應該作爲服務器維護時的一個方案
-    </p>
+    <div class="box" id="cs">
+        <h1 class="title">cloudflare server</h1>
+        <div class="content">
+            <div class="block">
+                cloudflare server 即通過 cloudflare 提供的 cdn 服務連接服務器，這是推薦的方案
+            </div>
+        </div>
+    </div>
 
-    <h1><a name="streamf"></a>streamf</h1>
-    <p>
-        <a href="https://github.com/powerpuffpenguin/streamf" target="_blank">streamf</a>
-        是一個中轉服務器，它的特色是可以由代理服務器反向連接中轉服務器。GWF對境外連接境內放的比較松，並且此方案比較穩定。
-        但是需要在境內有個服務器作爲中轉，最簡單的方法是將家庭寬帶中部署一個 <a href="https://github.com/powerpuffpenguin/streamf"
-            target="_blank">streamf</a> 服務
-    </p>
+    <div class="box" id="cw">
+        <h1 class="title">cloudflare worker</h1>
+        <div class="content">
+            <div class="block">
+                cloudflare worker 提供了 worker 可以直接充當服務器，這樣不需要再增加建立服務器。但 worker 每月流量和請求數是有限的，
+                並且 worker 可能每次會以不同的ip與目標服務建立連接，這很容易引起網址封鎖你的帳戶。 worker 只應該作爲服務器維護時的一個方案
+            </div>
+        </div>
+    </div>
+
+    <div class="box" id="streamf">
+        <h1 class="title">streamf</h1>
+        <div class="content">
+            <div class="block">
+                <a href="https://github.com/powerpuffpenguin/streamf" target="_blank">streamf</a>
+                是一個中轉服務器，它的特色是可以由代理服務器反向連接中轉服務器。GWF對境外連接境內放的比較松，並且此方案比較穩定。
+                但是需要在境內有個服務器作爲中轉，最簡單的方法是將家庭寬帶中部署一個 <a href="https://github.com/powerpuffpenguin/streamf"
+                    target="_blank">streamf</a> 服務
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
