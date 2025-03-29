@@ -132,7 +132,6 @@ document.addEventListener('alpine:init', function () {
         const s = localStorage.getItem('postx')
         if (s) {
             const o = JSON.parse(s)
-            console.log(o)
             initValue.baseurl = o.baseurl
             let v
             for (v of serverValues) {
@@ -166,7 +165,6 @@ document.addEventListener('alpine:init', function () {
                 }
             }
             for (v of grpcValues) {
-                console.log(v.id, o.grpc)
                 if (v.id == o.grpc) {
                     initValue.grpc = o.grpc
                     break
@@ -183,7 +181,6 @@ document.addEventListener('alpine:init', function () {
     } catch (e) {
         console.warn(e)
     }
-    console.log(initValue)
     function init() {
         this.$nextTick(() => {
             this.value = this.initValue
