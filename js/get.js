@@ -214,7 +214,9 @@ document.addEventListener('alpine:init', function () {
                 verify(v) {
                     if (this.first) {
                         this.first = false
+                        return
                     }
+                    this.err = null
                     try {
                         if (!v.startsWith("http://") && !v.startsWith("https://")) {
                             throw new Error("請輸入有效的訂閱地址")
