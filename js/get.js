@@ -129,54 +129,63 @@ document.addEventListener('alpine:init', function () {
         ed: false,
     }
     try {
-        const s = localStorage.getItem('postx')
+        let s = localStorage.getItem('postx')
         if (s) {
-            const o = JSON.parse(s)
-            initValue.baseurl = o.baseurl
-            let v
-            for (v of serverValues) {
-                if (v.id == o.server) {
-                    initValue.server = o.server
-                    break
+            if (s.startsWith("http")) {
+                initValue.baseurl = s
+            } else {
+                const o = JSON.parse(s)
+                initValue.baseurl = o.baseurl
+                let v
+                for (v of serverValues) {
+                    if (v.id == o.server) {
+                        initValue.server = o.server
+                        break
+                    }
                 }
-            }
-            for (v of clientValues) {
-                if (v.id == o.client) {
-                    initValue.client = o.client
-                    break
+                for (v of clientValues) {
+                    if (v.id == o.client) {
+                        initValue.client = o.client
+                        break
+                    }
                 }
-            }
-            for (v of ipValues) {
-                if (v.id == o.ip) {
-                    initValue.ip = o.ip
-                    break
+                for (v of ipValues) {
+                    if (v.id == o.ip) {
+                        initValue.ip = o.ip
+                        break
+                    }
                 }
-            }
-            for (v of protocolValues) {
-                if (v.id == o.protocol) {
-                    initValue.protocol = o.protocol
-                    break
+                for (v of protocolValues) {
+                    if (v.id == o.protocol) {
+                        initValue.protocol = o.protocol
+                        break
+                    }
                 }
-            }
-            for (v of networkValues) {
-                if (v.id == o.network) {
-                    initValue.network = o.network
-                    break
+                for (v of networkValues) {
+                    if (v.id == o.network) {
+                        initValue.network = o.network
+                        break
+                    }
                 }
-            }
-            for (v of grpcValues) {
-                if (v.id == o.grpc) {
-                    initValue.grpc = o.grpc
-                    break
+                for (v of grpcValues) {
+                    if (v.id == o.grpc) {
+                        initValue.grpc = o.grpc
+                        break
+                    }
                 }
-            }
-            for (v of xhttpValues) {
-                if (v.id == o.xhttp) {
-                    initValue.xhttp = o.xhttp
-                    break
+                for (v of xhttpValues) {
+                    if (v.id == o.xhttp) {
+                        initValue.xhttp = o.xhttp
+                        break
+                    }
                 }
+                initValue.ed = o.ed ? true : false
             }
-            initValue.ed = o.ed ? true : false
+        } else {
+            s = localStorage.getItem('baseurl')
+            if (s && s.startsWith("http")) {
+                initValue.baseurl = s
+            }
         }
     } catch (e) {
         console.warn(e)
