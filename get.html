@@ -5,166 +5,260 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>獲取地址</title>
-    <style>
-        .hide {
-            display: none;
-        }
+    <link rel="stylesheet" href="css/bulma-1.0.2.css">
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/alpinejs-3.14.9.js" defer></script>
 
-        .label {
-            text-align: center;
-            padding: 0 0.5rem 0 0;
-            white-space: nowrap;
-        }
-
-        .f {
-            width: 100%;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .flex-grow-0 {
-            flex-grow: 0;
-        }
-
-        .flex-grow-1 {
-            flex-grow: 1;
-        }
-
-        .view {
-            padding: 0 0.5rem 0 0.5rem;
-        }
-
-        .note {
-            margin-left: 0.5rem;
-            text-decoration: none;
-        }
-    </style>
-    <script src="jquery.js"></script>
 </head>
 
-<body>
-    <ul>
-        <li><a href="index.html">home</a></li>
-    </ul>
-
-    <h1>獲取地址</h1>
-    <div class="view">
-        <div class="flex">
-            <label for="baseurl" class="label flex-grow-0">訂閱地址:</label>
-            <div class="flex-grow-1">
-                <input type="text" id="baseurl" class="f">
-            </div>
-        </div>
-        <div class="flex">
-            <label for="server" class="label flex-grow-0">服務器:</label>
-            <div class="flex-grow-1">
-                <select name="server" id="server">
-                    <option value="cs">cloudflare server</option>
-                    <option value="ds">direct server</option>
-                    <option value="cw">cloudflare worker</option>
-                    <option value="sh">streamf home</option>
-                    <option value="sl">streamf lan</option>
-                </select>
-                <a class="note" href="server.html#">註解</a>
-            </div>
-        </div>
-        <div class="flex">
-            <label for="client" class="label flex-grow-0">客戶端:</label>
-            <div class="flex-grow-1">
-                <select name="client" id="client">
-                    <option value="x">v2rayNG</option>
-                    <option value="h">hiddify</option>
-                </select>
-            </div>
-        </div>
-        <div id="view_choose">
-            <div class="flex">
-                <label for="ip" class="label flex-grow-0">優選:</label>
-                <div class="flex-grow-1">
-                    <select name="xhttpmode" id="ip">
-                        <option value="0">域名</option>
-                        <option value="3">域名 2</option>
-                        <option value="1">ipv4</option>
-                        <option value="2">ipv6</option>
-                    </select>
-                    <a class="note" href="cdn.html#fastip">註解</a>
-                </div>
-            </div>
-            <div id="view_choose_protocol">
-                <div class="flex">
-                    <label for="protocol" class="label flex-grow-0">數據協議:</label>
-                    <div class="flex-grow-1">
-                        <select name="protocol" id="protocol">
-                            <option value="vmess">vmess</option>
-                            <option value="vless">vless</option>
-                        </select>
-                        <a class="note" href="v2ray.html#vmess">註解</a>
-                    </div>
-                </div>
-                <div class="flex">
-                    <label for="network" class="label flex-grow-0">傳輸協議:</label>
-                    <div class="flex-grow-1">
-                        <select name="network" id="network">
-                            <option value="ws">ws</option>
-                            <option value="httpupgrade">httpupgrade</option>
-                            <option value="grpc">grpc</option>
-                            <option value="xhttp">xhttp</option>
-                        </select>
-
-                        <a class="note hide" id="node_ws" href="ws.html#ws">註解</a>
-                        <a class="note hide" id="node_httpupgrade" href="ws.html#httpupgrade">註解</a>
-                        <a class="note hide" id="node_grpc" href="grpc.html#grpc">註解</a>
-                        <a class="note hide" id="node_xhttp" href="xray.html#xhttp">註解</a>
-                    </div>
-                </div>
-
-                <div id="xhttpview">
-                    <div class="flex">
-                        <label for="xhttpmode" class="label flex-grow-0">xhttp mode:</label>
-                        <div class="flex-grow-1">
-                            <select name="xhttpmode" id="xhttpmode">
-                                <option value="packet-up">packet-up</option>
-                                <option value="stream-up">stream-up</option>
-                                <option value="stream-one">stream-one</option>
-                            </select>
-                            <a class="note" href="xray.html#xhttp">註解</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="grpcview">
-                    <div class="flex">
-                        <label for="grpcmode" class="label flex-grow-0">grpc mode:</label>
-                        <div class="flex-grow-1">
-                            <select name="grpcmode" id="grpcmode">
-                                <option value="gun">gun</option>
-                                <option value="multi">multi</option>
-                            </select>
-                            <a class="note" href="grpc.html#gun">註解</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="wsview">
-                <div class="flex">
-                    <label for="wsed" class="label flex-grow-0">ed=2560</label>
-                    <div class="flex-grow-1">
-                        <input type="checkbox" name="wsed" id="wsed">
-                        <a class="note" href="ws.html#ed">註解</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p>
-            <button id="btn">生成訂閱地址</button>
-        <p id="output"></p>
-        <button id="copy" class="hide" data-clipboard-target="#output">複製到剪貼板</button>
-        </p>
+<body class="container" style="padding: 1.5rem 0 1.5rem 0;">
+    <div class="box content">
+        <ul>
+            <li><a href="index.html">home</a></li>
+        </ul>
     </div>
+
+    <template x-if="true" x-data="form">
+        <form class="box" x-show="ok">
+            <h1 class="title">獲取地址</h1>
+
+            <div class="field is-horizontal" x-data="baseurl" x-init="$watch('value', v=>verify(v))">
+                <div class="field-label is-normal">
+                    <label class="label">訂閱地址</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input :class="err&&'is-danger'" x-model="value" class="input" type="url"
+                                placeholder="https://example.com">
+                        </div>
+                        <template x-if="err">
+                            <p class="help is-danger" x-text="err"></p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal" x-data="server">
+                <div class="field-label is-normal">
+                    <label class="label">服務器類型</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-narrow has-addons">
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select x-model="value">
+                                    <template x-for="item in values">
+                                        <option :value="item.id" x-text="item.name"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <a class="button" :href="comment">
+                                註解
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="field is-horizontal" x-data="client">
+                <div class="field-label is-normal">
+                    <label class="label">客戶端種類</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-narrow">
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select x-model="value">
+                                    <template x-for="item in values">
+                                        <option :value="item.id" x-text="item.name"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal" x-data="ip" x-show="chooseIP">
+                <div class="field-label is-normal">
+                    <label class="label">優選策略</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-narrow has-addons">
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select x-model="value">
+                                    <template x-for="item in values">
+                                        <option :value="item.id" x-text="item.name"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <a class="button" :href="comment">
+                                註解
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div x-show="chooseProtocol">
+                <div class="field is-horizontal" x-data="protocol">
+                    <div class="field-label is-normal">
+                        <label class="label">數據協議</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow has-addons">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select x-model="value">
+                                        <template x-for="item in values">
+                                            <option :value="item.id" x-text="item.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <a class="button" :href="comment">
+                                    註解
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="field is-horizontal" x-data="network">
+                    <div class="field-label is-normal">
+                        <label class="label">傳輸協議</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow has-addons">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select x-model="value">
+                                        <template x-for="item in values">
+                                            <option :value="item.id" x-text="item.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <a class="button" :href="comment">
+                                    註解
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="field is-horizontal" x-data="grpc" x-show="hasGRPC">
+                    <div class="field-label is-normal">
+                        <label class="label">grpc mode</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow has-addons">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select x-model="value">
+                                        <template x-for="item in values">
+                                            <option :value="item.id" x-text="item.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <a class="button" :href="comment">
+                                    註解
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal" x-data="xhttp" x-show="hasXHTTP">
+                    <div class="field-label is-normal">
+                        <label class="label">xhttp mode</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow has-addons">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select x-model="value">
+                                        <template x-for="item in values">
+                                            <option :value="item.id" x-text="item.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <a class="button" :href="comment">
+                                    註解
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal" x-data="ed" x-show="hasED">
+                    <div class="field-label">
+                        <label class="label" for="wsed">ed=2560</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="checkbox" x-model="value" id="wsed">
+                                <a href="ws.html#ed">
+                                    註解
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <button @click="submit" type="button" class="button">生成訂閱地址</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template x-if="err">
+                <p class="help is-danger" x-text="err"></p>
+            </template>
+            <div x-show="url!=''">
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control" x-text="url" id="output"
+                                style="word-wrap: break-word;word-break: break-all;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <button id="copy" type="button" class="button"
+                                    data-clipboard-target="#output">複製到剪貼板</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </template>
 </body>
-<script src="clipboard.min.js"></script>
 <script src="js/get.js"></script>
+<script src="js/clipboard.min.js"></script>
 
 </html>
