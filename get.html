@@ -214,6 +214,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="field is-horizontal" x-data="alpn" x-show="hasAlpn">
+                    <div class="field-label is-normal">
+                        <label class="label">alpn</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow has-addons">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select x-model="value">
+                                        <template x-for="item in values">
+                                            <option :value="item" x-text="item"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="field is-horizontal">

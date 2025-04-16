@@ -117,6 +117,14 @@ document.addEventListener('alpine:init', function () {
             id: 'stream-one',
         },
     ]
+    const alpnValues = [
+        'h3',
+        'h2',
+        'http/1.1',
+        'h3,h2,http/1.1',
+        'h3,h2',
+        'h2,http/1.1',
+    ]
     const initValue = {
         baseurl: '',
         server: 'cs',
@@ -127,6 +135,7 @@ document.addEventListener('alpine:init', function () {
         grpc: 'gun',
         xhttp: 'stream-one',
         ed: false,
+        alpn: 'h2,http/1.1',
     }
     try {
         let s = localStorage.getItem('postx')
@@ -176,6 +185,12 @@ document.addEventListener('alpine:init', function () {
                 for (v of xhttpValues) {
                     if (v.id == o.xhttp) {
                         initValue.xhttp = o.xhttp
+                        break
+                    }
+                }
+                for (v of alpnValues) {
+                    if (v == o.alpn) {
+                        initValue.alpn = o.alpn
                         break
                     }
                 }
@@ -320,6 +335,17 @@ document.addEventListener('alpine:init', function () {
                 }
                 return false
             },
+            alpn: create({
+                initValue: initValue.alpn,
+                values: alpnValues,
+            }),
+            get hasAlpn() {
+                switch (this.network.value) {
+                    case 'xhttp':
+                        return true
+                }
+                return false
+            },
             save() {
                 try {
                     localStorage.setItem('postx', JSON.stringify({
@@ -332,6 +358,7 @@ document.addEventListener('alpine:init', function () {
 
                         grpc: this.grpc.value,
                         xhttp: this.xhttp.value,
+                        alpn: this.alpn.value,
                         ed: this.ed.value,
                     }))
                 } catch (e) {
@@ -432,6 +459,7 @@ document.addEventListener('alpine:init', function () {
                                     throw new Error(`請選擇有效的 xhttp mode`);
                             }
                             query.set('mode', `${mode}`)
+                            query.set('alpn', this.alpn.value)
                             break;
                         default:
                             throw new Error(`請選擇有效的傳輸協議`);
