@@ -5,6 +5,10 @@ document.addEventListener('alpine:init', function () {
             id: 'cs',
         },
         {
+            name: 'cloudflare tunnel',
+            id: 'ct',
+        },
+        {
             name: 'direct server',
             id: 'ds',
         },
@@ -130,10 +134,10 @@ document.addEventListener('alpine:init', function () {
         server: 'cs',
         client: 'x',
         ip: '0',
-        protocol: 'vmess',
-        network: 'grpc',
+        protocol: 'vless',
+        network: 'httpupgrade',
         grpc: 'gun',
-        xhttp: 'stream-one',
+        xhttp: 'packet-up',
         ed: false,
         alpn: 'h2,http/1.1',
     }
@@ -250,6 +254,7 @@ document.addEventListener('alpine:init', function () {
                     switch (this.value) {
                         case 'ds':
                         case 'cw':
+                        case 'ct':
                             return "server.html#" + this.value
                         case 'sh':
                         case 'sl':
