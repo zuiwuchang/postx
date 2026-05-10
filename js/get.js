@@ -12,10 +12,10 @@ document.addEventListener('alpine:init', function () {
             name: 'direct server',
             id: 'ds',
         },
-        {
-            name: 'cloudflare worker',
-            id: 'cw',
-        },
+        // {
+        //     name: 'cloudflare worker',
+        //     id: 'cw',
+        // },
         {
             name: 'streamf home',
             id: 'sh',
@@ -80,10 +80,10 @@ document.addEventListener('alpine:init', function () {
         },
     ]
     const networkValues = [
-        {
-            name: 'websocket',
-            id: 'ws',
-        },
+        // {
+        //     name: 'websocket',
+        //     id: 'ws',
+        // },
         {
             name: 'httpupgrade',
             id: 'httpupgrade',
@@ -140,6 +140,7 @@ document.addEventListener('alpine:init', function () {
         xhttp: 'packet-up',
         ed: false,
         alpn: 'h2,http/1.1',
+        vlessenc: false,
     }
     try {
         let s = localStorage.getItem('postx')
@@ -340,6 +341,19 @@ document.addEventListener('alpine:init', function () {
                 }
                 return false
             },
+            vlessenc: create({
+                initValue: initValue.vlessenc,
+            }),
+            get hasVlessEnc() {
+                if (this.client.value == 'h') {
+                    return false
+                }
+                switch (this.protocol.value) {
+                    case 'vless':
+                        return true
+                }
+                return false
+            },
             alpn: create({
                 initValue: initValue.alpn,
                 values: alpnValues,
@@ -428,7 +442,11 @@ document.addEventListener('alpine:init', function () {
                             this.save()
                             return
                     }
-                    query.set('protocol', `${this.protocol.value}`)
+                    const protocol = `${this.protocol.value}`
+                    query.set('protocol', protocol)
+                    if (protocol === "vless" && this.vlessenc.value) {
+                        query.set('enc', '1')
+                    }
                     const network = this.network.value
                     query.set('network', `${network}`)
                     let mode
