@@ -70,10 +70,10 @@ document.addEventListener('alpine:init', function () {
         },
     ]
     const protocolValues = [
-        {
-            name: 'vmess',
-            id: 'vmess',
-        },
+        // {
+        //     name: 'vmess',
+        //     id: 'vmess',
+        // },
         {
             name: 'vless',
             id: 'vless',
